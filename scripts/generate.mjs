@@ -2,7 +2,7 @@
 // YZZX-cover 风格测试生成脚本
 // 用法见 SKILL.md「风格学习工作流 / Phase 3」
 // 设计：读取 references/styles/<style>.json 中的 prompt，组合标题与禁止事项，
-// 调用可配置的图像生成后端。未配置后端时直接输出最终 prompt，便于在 WorkBuddy 中用 ImageGen 生成。
+// 调用可配置的图像生成后端。未配置后端时直接输出最终 prompt，便于通过宿主内置 ImageGen 生成。
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
@@ -71,7 +71,7 @@ const provider = process.env.IMAGE_PROVIDER;
 if (!provider) {
   console.log(
     'ℹ️  未设置 IMAGE_PROVIDER，已输出最终 prompt。\n' +
-    '   方式一：在 WorkBuddy 中直接调用 ImageGen 工具，粘贴上述 prompt 生成。\n' +
+    '   方式一：直接调用宿主内置 ImageGen 工具，粘贴上述 prompt 生成。\n' +
     '   方式二：设置 IMAGE_PROVIDER=openai 并配置 OPENAI_API_KEY 后重跑本脚本实际出图。'
   );
   process.exit(0);

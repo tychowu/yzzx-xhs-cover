@@ -31,23 +31,13 @@ YZZX-cover/
 
 ## 安装位置
 
-### WorkBuddy：用户级
-
-把整个文件夹复制到：
+把整个技能文件夹（包括 scripts 与 references）复制到 Codex 用户技能目录：
 
 ```text
-~/.workbuddy/skills/YZZX-cover/
+~/.codex/skills/yzzx-xhs-cover/
 ```
 
-### WorkBuddy：项目级
-
-把整个文件夹复制到项目中的：
-
-```text
-.workbuddy/skills/YZZX-cover/
-```
-
-安装后可直接用自然语言描述需要制作、优化小红书封面的任务，让 WorkBuddy 自动匹配；或在对话中通过 Skill 工具调用 `YZZX-cover`。
+调用 `yzzx-cover` 后，首次运行会检查并安装缺失依赖。生成图片优先使用宿主内置 ImageGen 工具。
 
 ## 版本 1.0 的设计重点
 

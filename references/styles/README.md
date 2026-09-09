@@ -9,7 +9,7 @@
   - `<style-id>.jpg` / `.png` / `.webp`：主参考图，用风格英文名命名。
   - `<style-id>-02.jpg` 等：同一风格的补充参考图（可选），用于保留不同版式分支。
 - 文件名示例：`warm-orange-motivation.json` + `warm-orange-motivation.jpg`。
-- 通用出图约定（适用于本库所有风格）：画布比例强制 3:4（像素 1080×1440，禁止 1024×1536 等 2:3 拉长比例）；强调色面积占比须与原参考图一致（单色约 13%–22%、合计约 18%–23%）；字体按内容自动推荐、保留手写/变体风格；系列标签位置不与同色大块重叠、尺寸同原图小标签、文案需先询问用户并注明「推荐 ip 名称」；去水印优先用本库 `scripts/hunyuan_img_no_logo.py`（请求体固定 `LogoAdd=0`，复用内置 TC3 签名与轮询，需运行态 `BUDDY_CLOUD_TOKEN`），ImageGen 工具参数未暴露 LogoAdd 仅作降级（可能仍含水印）。
+- 通用出图约定（适用于本库所有风格）：画布比例强制 3:4（像素 1080×1440，禁止 1024×1536 等 2:3 拉长比例）；强调色面积占比须与原参考图一致（单色约 13%–22%、合计约 18%–23%）；字体按内容自动推荐、保留手写/变体风格；系列标签位置不与同色大块重叠、尺寸同原图小标签、文案需先询问用户并注明「推荐 ip 名称」。
 
 ## 已收录风格
 
@@ -42,7 +42,7 @@
 
 ## 如何在生成时使用
 
-测试生成（Phase 3，优先去水印脚本）：
+测试生成（Phase 3，须先取得用户确认）：
 
 ```bash
 # 1) 组装 prompt（仅输出文本，不出图）
@@ -51,9 +51,7 @@ node ${SKILL_DIR}/scripts/generate.mjs \
   --title "标题" \
   --output-dir "/tmp/xhs-style-test"
 
-# 2) 用去水印脚本生图（请求体固定 LogoAdd=0，需运行态 BUDDY_CLOUD_TOKEN）
-BUDDY_CLOUD_TOKEN=<token> python3 ${SKILL_DIR}/scripts/hunyuan_img_no_logo.py \
-  image "组装好的提示词" --resolution 1152:1536 --output-dir /tmp/xhs-style-test
+# 2) 使用宿主内置 ImageGen 工具，传入上述提示词与人物参考图。
 ```
 
 新增风格后由工作流自动更新本表。
