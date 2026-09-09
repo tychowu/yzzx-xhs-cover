@@ -35,7 +35,7 @@ const style = args.style;
 const title = args.title || '5 个让生活变好的小习惯';
 const aspectRatio = args['aspect-ratio'] || '3:4';
 const label = args.label || '{{系列标签文案}}';
-const outputDir = args['output-dir'] || '/tmp/xhs-style-test';
+const outputDir = args['output-dir'] || join(process.cwd(), 'output', 'style-tests', style || 'unclassified');
 
 if (!style) {
   console.error('❌ 缺少 --style 参数（风格 ID，即 references/styles/ 下 .json 文件名去掉后缀）');
