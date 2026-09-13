@@ -7,6 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+from output_paths import initialize_output
 
 
 def run(args):
@@ -19,6 +20,7 @@ def main():
     parser.add_argument('--node', action='store_true', help='Require Node.js 18+ for generate.mjs')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    output = initialize_output()
     cache = Path(os.environ.get('YZZX_RUNTIME_DIR', str(Path.home() / '.cache' / 'yzzx-cover' / 'runtime')))
     py = cache / ('Scripts/python.exe' if os.name == 'nt' else 'bin/python')
     packages = [('yaml', 'PyYAML>=6,<7')]
@@ -51,7 +53,7 @@ def main():
                 issues.append('Invalid style: ' + path.name)
         except (ValueError, OSError):
             issues.append('Unreadable style: ' + path.name)
-    print(json.dumps({'ready': not issues, 'python': str(py), 'node': node,
+    print(json.dumps({'ready': not issues, 'python': str(py), 'node': node, 'output_root': str(output),
                       'styles': len(styles), 'issues': issues},
                      ensure_ascii=False, indent=2))
     return bool(issues)

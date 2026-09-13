@@ -81,6 +81,8 @@
 python3 scripts/bootstrap.py --install
 ```
 
+首次运行还会创建当前登录用户图片目录下的 **Yzzx Cover**，返回绝对路径 `output_root`：macOS 为 `~/Pictures/Yzzx Cover`；Windows 读取系统 Pictures 目录（兼容 OneDrive 重定向），不写死用户名。目录不可用时报告错误，不回退到仓库。也可运行 `python3 scripts/output_paths.py` 单独初始化。
+
 脚本创建独立缓存环境并安装所需 Python 依赖，后续脚本使用检查结果返回的 Python 路径。安装遵循宿主的权限与网络限制；环境检查本身不生图、不上传人物照片、不消耗生成额度。
 
 图片生成优先使用宿主内置工具，该路径不需要另装 OpenAI SDK、Node.js 或提供 API key。可选的 `generate.mjs` 提示词脚本需要 Node.js 18+；其旧版直连 API 路径不自动用于环境检查或付费测试。详细依赖与故障处理见 [SKILL.md](SKILL.md)。无可用生图工具时，交付制作说明，不声称已生成图片。
@@ -102,11 +104,16 @@ yzzx-xhs-cover/
 │       └── approved-examples/      # 用户确认的风格示意图
 ├── tests/
 │   └── test-cases.md
-└── output/                          # 本地生成结果，不提交 Git
-    ├── covers/
-    └── style-tests/<style-id>/      # 测试及迭代记录
 ```
 
-仓库保留技能规则、脚本、学习参考图和经用户确认的示意图。**`output/` 及其全部内容只保留在本地，不提交到 GitHub**；提交前检查 `.gitignore` 包含 `/output/`，并检查暂存列表，不使用强制添加绕过忽略规则。对已跟踪输出取消跟踪不会删除本地文件，也不会清除旧提交中的历史副本。
+生成结果单独存放在当前用户的图片目录：
+
+```text
+Pictures/Yzzx Cover/
+├── covers/<主题>/                   # 普通封面及提示词
+└── style-tests/<style-id>/          # 测试及迭代记录
+```
+
+仓库保留技能规则、脚本、学习参考图和经用户确认的示意图。**新生成图片和提示词保存到仓库外的 `Pictures/Yzzx Cover`，不提交到 GitHub**。旧 `output/` 不自动搬迁或删除，仍应排除提交；提交前检查 `.gitignore` 包含 `/output/`，并检查暂存列表，不使用强制添加绕过忽略规则。对已跟踪输出取消跟踪不会删除本地文件，也不会清除旧提交中的历史副本。
 
 本 README 是概览；执行时以 [SKILL.md](SKILL.md) 和所选风格 JSON 为准。普通生成或测试不会自动修改技能、替换示意图或发布仓库；可复用规则的回写需用户明确要求。

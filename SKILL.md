@@ -34,6 +34,17 @@ metadata:
    - `_measure_color_area.mjs` 是可选开发辅助脚本，不属于封面必需环境；使用前先把历史绝对素材路径改为本次实际路径，并在技能目录安装 `jpeg-js`（`npm install --no-save --package-lock=false --ignore-scripts jpeg-js@0.4.4`）。普通出图不安装它的依赖。
 5. 安装后重新运行相同检查，确认导入成功、风格库可读和所需工具可用。环境检查不生图、不上传照片、不消耗生成额度。只有检查成功才报告环境就绪；失败时保留具体错误，修复后再检查，不无限重试。
 
+## 外置输出目录（所有生成路径）
+
+首次运行由 `scripts/bootstrap.py` 创建当前登录用户图片目录下的 `Yzzx Cover`，返回绝对路径 `output_root`。也可运行 `python3 scripts/output_paths.py` 单独初始化，不生图、不安装依赖。
+
+- macOS：`Path.home()/Pictures/Yzzx Cover`，不写死用户名。
+- Windows：读取系统当前用户的 Pictures（MyPictures）目录，再追加 `Yzzx Cover`；兼容本地化名称和 OneDrive/系统重定向，不把中文显示名“图片”硬编码为磁盘路径。
+- 其他系统或目录解析、创建失败时，说明原因并请求指定外置位置；不得回退到工作区、技能目录或当前目录的 `output/`。遇权限限制先按宿主机制申请权限。
+- 普通封面及对应提示词存入 `<output_root>/covers/<主题>/`；测试、重试图及提示词存入 `<output_root>/style-tests/<style-id>/`，文件名带版本避免覆盖。每次运行复查目录可用。
+- 内置生图工具若返回临时文件，验收后复制到上述外置目录并提供绝对路径；不要先存入仓库。辅助脚本的显式输出参数也须使用外置绝对路径。
+- 学习参考图仍在 `references/styles/source-references/`；仅用户确认入库的示意图复制到 `approved-examples/`，外置源测试保留。不自动迁移或删除旧 `output/`，不自动提交或推送。
+
 ## 工作流程
 
 ### 第一步：收集文案与人物照片
@@ -196,11 +207,11 @@ metadata:
     ├── source-references/<style-id>/            # 用户上传的全部学习参考图
     ├── approved-examples/<风格中文名>.<ext>     # 用户确认通过后选择保留的测试示意图
     └── README.md                                # 索引、来源与示意图链接
-    output/style-tests/<style-id>/               # 所有 Phase 3 测试图与迭代图
+    <output_root>/style-tests/<style-id>/               # 所有 Phase 3 测试图与迭代图
 
 - 学习参考图与测试图必须分开保存；绝不把测试图混入 source-references/，也不把参考图当作测试结果或成品示意图。
 - approved-examples/ 只保存用户明确确认过的测试图。文件名使用该风格的中文名称；若同名已存在，新增版本号，不覆盖旧图。
-- output/style-tests/ 中的测试图保留作为测试记录，除非用户明确要求删除。
+- <output_root>/style-tests/ 中的测试图保留作为测试记录，除非用户明确要求删除。
 
 ### 阶段门禁（不可跳过）
 
@@ -278,7 +289,7 @@ Prompt 撰写要点：
 
 仅在用户明确回答同意后才调用任何生图工具或脚本；未同意时，交付已保存的风格文件与可选测试入口，不生成图片。
 
-若用户同意，收集测试内容，要求用户提供文案，和人物控制图。每次生成与迭代都保存到 output/style-tests/<style-id>/，文件名标注主题与版本；不得保存进 references/styles/。
+若用户同意，收集测试内容，要求用户提供文案，和人物控制图。每次生成与迭代都保存到 <output_root>/style-tests/<style-id>/，文件名标注主题与版本；不得保存进 references/styles/。
 
 用 Read 工具展示生成结果，和原参考图放在一起让用户对比。
 
@@ -288,7 +299,7 @@ Prompt 撰写要点：
 
 测试满足要求后，等待用户明确确认“测试通过”或等效表述；随后单独询问：「测试已通过。是否将这张测试图作为『{name}』的风格样式示意图加入 styles？」
 
-- 用户确认加入：把用户选定的测试图复制到 references/styles/approved-examples/<风格中文名>.<ext>，并在 README 的该风格行链接为“已确认示意图”。源测试图仍保留在 output/style-tests/<style-id>/。
+- 用户确认加入：把用户选定的测试图复制到 references/styles/approved-examples/<风格中文名>.<ext>，并在 README 的该风格行链接为“已确认示意图”。源测试图仍保留在 <output_root>/style-tests/<style-id>/。
 - 用户拒绝加入或没有明确答复：不得把测试图复制到 references/styles/；只交付测试文件路径与后续可选操作。
 
 ### 错误处理
