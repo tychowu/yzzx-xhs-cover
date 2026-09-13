@@ -73,8 +73,11 @@
 将完整技能目录复制到以下位置，不能只复制 `SKILL.md`：
 
 ```text
-~/.codex/skills/yzzx-xhs-cover/
+~/.codex/skills/yzzx-xhs-cover/        # Codex
+<workspace>/.workbuddy/skills/YZZX-cover/   # WorkBuddy（项目级技能目录）
 ```
+
+> WorkBuddy 调用时名称用小写 `@skill:yzzx-cover`；大写目录名 `YZZX-cover` 不影响文件读取，但按名调用需用小写。WorkBuddy 专属运行差异见 `SKILL.md` 文末「WorkBuddy 环境补充」与 `references/workbuddy-adaptations.md`。
 
 首次运行或迁移后，从技能目录执行环境检查：
 
