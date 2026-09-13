@@ -7,6 +7,3 @@ __pycache__/
 
 # Node
 node_modules/
-
-# Generated covers and test outputs (keep local only)
-/output/
