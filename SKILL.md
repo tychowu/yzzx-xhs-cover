@@ -193,6 +193,8 @@ metadata:
 
 ## 迭代与经验回写
 
+团队提交改进时遵循 [CONTRIBUTING.md](CONTRIBUTING.md)：独立草稿分支、测试、更新申请、负责人确认，不直接推送 main。普通生图不自动提交、合并或发布。版本号见 VERSION，更新内容见 CHANGELOG.md；版本检查仍以官方 main 提交 SHA 为最终依据。
+
 用户反馈某个结果不好时：
 
 1. 先修改当前方案。
