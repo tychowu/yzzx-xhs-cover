@@ -7,3 +7,11 @@ __pycache__/
 
 # Node
 node_modules/
+
+# Generated output and local secrets never belong in the repository
+/output/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
