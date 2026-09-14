@@ -193,7 +193,7 @@ metadata:
 
 ## 迭代与经验回写
 
-团队提交改进时遵循 [CONTRIBUTING.md](CONTRIBUTING.md)：独立草稿分支、测试、更新申请、负责人确认，不直接推送 main。普通生图不自动提交、合并或发布。版本号见 VERSION，更新内容见 CHANGELOG.md；版本检查仍以官方 main 提交 SHA 为最终依据。
+团队提交改进时遵循 [CONTRIBUTING.md](CONTRIBUTING.md)：有写入权限的成员直接更新 main，不新建分支、不创建 PR、不要求其他用户审批。根据实际 diff 自动填写修改原因、内容、影响、测试结果与风险；保留测试、隐私检查、版本号与更新记录。仅在用户授权提交推送时发布，普通生图不自动提交或发布；冲突暂停说明，不强推或覆盖他人修改。版本号见 VERSION，更新内容见 CHANGELOG.md；全局 Release 同步与项目 main 更新按版本检查流程区分。
 
 用户反馈某个结果不好时：
 
