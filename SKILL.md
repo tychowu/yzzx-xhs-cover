@@ -196,7 +196,7 @@ metadata:
 
 用户反馈某个结果不好时：
 
-**维护交付的版本准备**：每轮修改本 Skill 或风格后，交付前按 CONTRIBUTING.md 同步准备 VERSION 与对应 CHANGELOG.md，避免用户直接点击“提交并推送”时仍携带已发布版本。发布验证必须使用获取到的官方 main 完整 SHA 作为 `scripts/check_repository.py --base <SHA>` 的基准；不带基准的结构检查不得称为发布检查通过。已有待推送的更高版本可汇入同一版本；不自动提交推送，获准推送后须分别核实自动检查和新 Release。网络不可用则说明版本准备未核实，不声称发布就绪。
+**维护交付的版本准备**：每轮修改本 Skill 或风格后，交付前按 CONTRIBUTING.md 同步准备 VERSION 与对应 CHANGELOG.md，避免用户直接点击“提交并推送”时仍携带已发布版本。发布验证必须使用获取到的官方 main 完整 SHA 作为 `scripts/check_repository.py --base <SHA>` 的基准；不带基准的结构检查不得称为发布检查通过。已有待推送的更高版本可汇入同一版本；不自动提交推送，获准推送后须分别核实自动检查和新 Release；**每次推送都要有对应该版本号的新 GitHub Release**，自动发布未生成时用 `gh release create v<版本> --title "v<版本>" --notes-file <临时说明文件>` 补建（说明取 CHANGELOG.md 该版本条目），不得只推 tag 就结束。网络不可用则说明版本准备未核实，不声称发布就绪。
 
 1. 先修改当前方案。
 2. 判断反馈是否能抽象成以后都适用的规则。
